@@ -10,7 +10,7 @@ export ARCH="arm64"
 export KBUILD_BUILD_HOST="Requiem"
 export KBUILD_BUILD_USER="Rasenkai"
 
-PATH=/home/rasenkai/kernel/toolchain/aospclang/bin/:$PATH
+PATH=/home/rasenkai/kernel/toolchain/proton-clang/bin/:$PATH
 
 # Colors
 NC='\033[0m'
@@ -50,10 +50,16 @@ compile()
 	make -j$(nproc --all) O=out \
                       ARCH=${ARCH}\
                       CC="ccache clang" \
-	                CLANG_TRIPLE="aarch64-linux-gnu-" \
-	                CROSS_COMPILE="aarch64-linux-gnu-" \
-	                CROSS_COMPILE_ARM32="arm-linux-gnueabi-" \
-	                -j4
+                      LD="ld.lld" \
+                      AR="llvm-ar" \
+                      NM="llvm-nm" \
+                      OBJCOPY="llvm-objcopy" \
+                      OBJDUMP="llvm-objdump" \
+                      STRIP="llvm-strip" \
+                      CLANG_TRIPLE="aarch64-linux-gnu-" \
+                      CROSS_COMPILE="aarch64-linux-gnu-" \
+                      CROSS_COMPILE_ARM32="arm-linux-gnueabi-" \
+                      -j4
 }
 
 completion()
