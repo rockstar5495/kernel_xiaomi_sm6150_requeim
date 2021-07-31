@@ -39,7 +39,7 @@ make_defconfig()
 	else
 	zip_name="$kernel_name-$(date +"%d%m%Y")-SWEET.zip"
 	fi
-	
+
 	echo -e "${LGR}" "########### Generating Defconfig ############${NC}"
     make -s ARCH=${ARCH} O="${objdir}" "${CONFIG_FILE}" -j$(nproc --all)
 }
@@ -51,6 +51,7 @@ compile()
                       ARCH=${ARCH}\
                       CC="ccache clang" \
                       LD="ld.lld" \
+                      AS="llvm-as" \
                       AR="llvm-ar" \
                       NM="llvm-nm" \
                       OBJCOPY="llvm-objcopy" \
